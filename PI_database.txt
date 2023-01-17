@@ -1,0 +1,43 @@
+CREATE DATABASE Resilia;
+
+CREATE TABLE cursos (
+id int,
+curso varchar(255) 
+);
+
+CREATE TABLE turmas (
+turma int,
+qntd_alunos int
+);
+
+CREATE TABLE alunos (
+id_aluno int,
+nome varchar(255),
+idade int,
+cpf varchar(11),
+email varchar(255),
+turma_id int
+);
+
+ALTER TABLE resilia.alunos
+CHANGE COLUMN id_aluno id_aluno INT NOT NULL ,
+ADD PRIMARY KEY (id_aluno);
+
+ALTER TABLE resilia.cursos
+CHANGE COLUMN id id_curso INT NOT NULL ,
+ADD PRIMARY KEY (id_curso);
+
+INSERT INTO cursos VALUES('1', 'front-end');
+
+INSERT INTO cursos VALUES('2', 'back-end');
+
+INSERT INTO cursos VALUES('3', 'soft');
+
+CREATE TABLE professores (  id INT,
+nome varchar(255),
+especializacao varchar(255)
+);
+
+ALTER TABLE professores
+CHANGE COLUMN id id INT NOT NULL,
+ADD PRIMARY KEY (id);
