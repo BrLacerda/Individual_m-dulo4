@@ -1,94 +1,43 @@
 CREATE DATABASE Resilia;
 
+CREATE TABLE alunos (
+  id_aluno int NOT NULL,
+  nome varchar(255) NOT NULL,
+  idade int DEFAULT NULL,
+  cpf varchar(11) DEFAULT NULL,
+  email varchar(255) DEFAULT NULL,
+  turma int NOT NULL,
+  PRIMARY KEY (id_aluno),
+  UNIQUE KEY id_aluno_UNIQUE (id_aluno)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 CREATE TABLE cursos (
-id int,
-curso varchar(255) 
-);
+  id_curso int NOT NULL,
+  curso varchar(255) NOT NULL,
+  PRIMARY KEY (id_curso),
+  UNIQUE KEY curso_UNIQUE (curso)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE professores (
+  id int NOT NULL,
+  nome varchar(255) NOT NULL,
+  curso varchar(255) NOT NULL,
+  idade int DEFAULT NULL,
+  cpf varchar(11) NOT NULL,
+  email varchar(255) DEFAULT NULL,
+  PRIMARY KEY (id),
+  KEY curso_idx (curso)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE turmas (
-turma int,
-qntd_alunos int
-);
-
-CREATE TABLE alunos (
-id_aluno int,
-nome varchar(255),
-idade int,
-cpf varchar(11),
-email varchar(255),
-turma_id int
-);
-
-ALTER TABLE resilia.alunos
-CHANGE COLUMN id_aluno id_aluno INT NOT NULL ,
-ADD PRIMARY KEY (id_aluno);
-
-ALTER TABLE resilia.cursos
-CHANGE COLUMN id id_curso INT NOT NULL ,
-ADD PRIMARY KEY (id_curso);
-
-INSERT INTO cursos VALUES('1', 'front-end');
-
-INSERT INTO cursos VALUES('2', 'back-end');
-
-INSERT INTO cursos VALUES('3', 'soft');
-
-CREATE TABLE professores (  id INT,
-nome varchar(255),
-especializacao varchar(255)
-);
-
-ALTER TABLE professores
-CHANGE COLUMN id id INT NOT NULL,
-ADD PRIMARY KEY (id);
-
-
-
-
-
-
-
-
-CREATE TABLE `alunos` (
-  `id_aluno` int NOT NULL,
-  `nome` varchar(255) NOT NULL,
-  `idade` int DEFAULT NULL,
-  `cpf` varchar(11) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `turma` int NOT NULL,
-  PRIMARY KEY (`id_aluno`),
-  UNIQUE KEY `id_aluno_UNIQUE` (`id_aluno`),
-  KEY `turma_idx` (`turma`),
-  CONSTRAINT `turma` FOREIGN KEY (`turma`) REFERENCES `turmas` (`turma`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
-
-CREATE TABLE `cursos` (
-  `id_curso` int NOT NULL,
-  `curso` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_curso`),
-  UNIQUE KEY `curso_UNIQUE` (`curso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
-CREATE TABLE `professores` (
-  `id` int NOT NULL,
-  `nome` varchar(255) NOT NULL,
-  `curso` varchar(255) NOT NULL,
-  `idade` int DEFAULT NULL,
-  `cpf` varchar(11) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `curso_idx` (`curso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-CREATE TABLE `turmas` (
-  `turma` int NOT NULL,
-  `qntd_alunos` int DEFAULT NULL,
-  `id_prof` int NOT NULL,
-  `id_curso` int NOT NULL,
-  PRIMARY KEY (`turma`),
-  KEY `id_prof` (`id_prof`),
-  KEY `id_curso` (`id_curso`),
-  CONSTRAINT `id_curso` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
-  CONSTRAINT `id_prof` FOREIGN KEY (`id_prof`) REFERENCES `professores` (`id`)
+  turma int NOT NULL,
+  qntd_alunos int DEFAULT NULL,
+  id_prof int NOT NULL,
+  id_curso int NOT NULL,
+  PRIMARY KEY (turma),
+  KEY id_prof (id_prof),
+  KEY id_curso (id_curso),
+  CONSTRAINT id_curso FOREIGN KEY (id_curso) REFERENCES cursos (id_curso),
+  CONSTRAINT id_prof FOREIGN KEY (id_prof) REFERENCES professores (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
